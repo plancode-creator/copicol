@@ -1,0 +1,168 @@
+CONTRAT DE LICENCE D'UTILISATION DE COPICOL
+
+Copyright (c) 2026 plan</>code. Tous droits réservés.
+
+copicol et sa documentation (le « Logiciel ») sont la propriété exclusive de
+plan</>code (l'« Éditeur »). Le présent contrat définit les conditions dans
+lesquelles le Logiciel peut être utilisé. Utiliser le Logiciel vaut
+acceptation de ce contrat.
+
+
+1. DÉFINITIONS
+
+« Licencié » : la personne physique ou morale qui a acquis une licence, ou
+qui utilise le Logiciel en mode d'essai.
+
+« Support » : le disque d'un ordinateur, physique ou virtuel, ou le
+périphérique amovible (clé USB, disque externe) sur lequel se trouve le
+Logiciel et sur lequel il est activé avec une clé de licence. Un Support
+amovible peut être utilisé sur tout ordinateur où il est branché.
+
+« Usage personnel » : un usage privé, sans lien avec une activité
+professionnelle, commerciale, libérale, associative ou administrative,
+rémunérée ou non.
+
+« Entreprise » : une seule personne morale, identifiée par un même numéro
+d'immatriculation (SIREN ou équivalent étranger), ou une seule personne
+exerçant une activité professionnelle en nom propre. Les filiales, sociétés
+sœurs et autres sociétés d'un même groupe sont des Entreprises distinctes.
+
+
+2. MODE D'ESSAI
+
+Sans clé de licence, le Logiciel fonctionne en mode d'essai : la simulation
+(analyse de la source et production des rapports, sans rien copier),
+l'estimation, la recherche dans une sauvegarde existante, sa vérification et
+la récupération des droits d'accès sont utilisables gratuitement, sans limite
+de durée, pour tout usage.
+
+La copie, la reprise d'une copie et la restauration demandent une licence.
+
+
+3. OFFRES DE LICENCE
+
+Chaque licence donne le droit d'utiliser toutes les fonctions du Logiciel,
+dans les limites suivantes :
+
+  - Licence Personnelle : un Support, pour un Usage personnel et non commercial uniquement.
+  - Licence Professionnelle : un Support, pour tout usage, y compris
+    professionnel.
+  - Licence Entreprise : jusqu'à 25 Supports, appartenant à une même
+    Entreprise ou utilisés par ses salariés pour son compte.
+  - Licence Entreprise illimitée : un nombre illimité de Supports,
+    appartenant à une même Entreprise ou utilisés par ses salariés pour son
+    compte.
+
+Une Entreprise qui a besoin de plus de 25 Supports acquiert plusieurs licences
+Entreprise ou une licence Entreprise illimitée.
+
+Les prix sont ceux affichés sur la boutique de l'Éditeur au moment de
+l'achat. La licence est acquise par un paiement unique, sans abonnement, et
+sans limite de durée.
+
+
+4. ACTIVATION ET TRANSFERT
+
+Une licence s'active sur chaque Support avec la clé reçue lors de l'achat. Le
+Logiciel contacte alors le serveur de licences de l'Éditeur ; une connexion
+à Internet n'est exigée qu'à ce moment. Ensuite, lorsque l'ordinateur est
+connecté, le Logiciel revérifie la clé en arrière-plan, au plus une fois par
+semaine. Sans connexion, il continue de fonctionner normalement : la licence
+n'est retirée que si le serveur répond que la clé a été désactivée. Ces
+échanges transmettent uniquement la clé, le nom de l'ordinateur et du
+Support et l'identifiant de l'activation ; ils ne transmettent aucun nom ni
+contenu des fichiers traités.
+
+La licence est liée au support d'où le Logiciel a été activé. Activée sur
+une clé USB, elle suit cette clé d'un ordinateur à l'autre, sans nouvelle
+activation ; activée sur le disque d'un ordinateur, elle reste liée à cet
+ordinateur.
+
+Le Licencié peut à tout moment libérer un Support (bouton « Licence… », puis
+« Libérer ») pour activer la licence sur un autre.
+
+La clé de licence est personnelle au Licencié : il ne peut ni la publier, ni
+la communiquer à un tiers, ni l'utiliser pour plus de Supports que son offre
+ne le permet. Une clé utilisée en violation de ce contrat, ou dont le
+paiement a été annulé ou remboursé, peut être désactivée.
+
+
+5. MISES À JOUR
+
+La licence couvre la version du Logiciel acquise et ses mises à jour de la
+même version majeure (par exemple, toutes les versions 1.x pour une licence
+achetée en version 1.0). Hors les mises à jour, notamment de sécurité,
+nécessaires au maintien de la conformité du Logiciel et dues au consommateur
+en application de la loi, l'Éditeur n'est pas tenu de publier des mises à
+jour.
+
+
+6. RESTRICTIONS
+
+Sauf accord écrit de l'Éditeur, sous réserve de l'autorisation de
+redistribution prévue ci-dessous et dans les limites permises par la loi, il
+est interdit :
+
+  - de copier, modifier, adapter, traduire, décompiler ou désassembler tout
+    ou partie du Logiciel ;
+  - de contourner ou neutraliser le contrôle de licence, notamment en
+    dupliquant un support activé ;
+  - de distribuer, louer, prêter, sous-licencier ou vendre tout ou partie du
+    Logiciel ou une clé de licence.
+
+L'exécutable non modifié (copicol.exe) peut être copié et redistribué
+librement : il fonctionne en mode d'essai partout où aucune licence n'a été
+activée. Une copie de l'exécutable n'emporte pas la licence d'un Support.
+
+
+7. VENTE ET REMBOURSEMENT
+
+Les licences sont vendues pour le compte de l'Éditeur par Lemon Squeezy, qui
+agit comme revendeur : il encaisse le paiement, émet la facture et applique
+la TVA. Les demandes de remboursement suivent ses conditions de vente.
+
+Le consommateur dispose d'un droit de rétractation de quatorze jours à
+compter de l'achat. Il le perd lorsque, lors de l'achat, il a expressément
+demandé la fourniture immédiate de la clé de licence et reconnu perdre ainsi
+ce droit, et que cet accord lui a été confirmé (article L221-28, 13° du Code
+de la consommation).
+
+Le mode d'essai permet de vérifier avant l'achat que le Logiciel répond au
+besoin du Licencié sur ses propres dossiers.
+
+
+8. GARANTIE ET RESPONSABILITÉ
+
+Sous réserve des garanties légales rappelées ci-dessous, le Logiciel est fourni « en l'état ». L'Éditeur ne garantit pas qu'il fonctionnera sans erreur ni qu'il conviendra à un usage particulier.
+
+Le Licencié doit prendre les précautions nécessaires pour protéger ses données : vérifier les rapports produits par le Logiciel et conserver la source tant que la copie n'est pas contrôlée.
+
+Pour un usage professionnel, l'Éditeur ne pourra être tenu responsable des dommages indirects, notamment d'une perte d'exploitation ou de chiffre d'affaires, et sa responsabilité totale ne pourra excéder le prix payé pour la licence.
+
+Ces limitations s'appliquent dans les limites autorisées par la loi et ne portent pas atteinte aux garanties légales du consommateur.
+
+
+9. RÉSILIATION
+
+En cas de manquement au présent contrat, l'Éditeur peut, après une mise en
+demeure restée sans effet pendant trente jours, résilier la licence. Il peut
+la résilier sans délai en cas de manquement grave : contournement du contrôle
+de licence, publication ou revente de la clé, ou paiement annulé ou
+frauduleux. Sous réserve du droit applicable, le Licencié doit alors cesser
+d'utiliser le Logiciel, hors mode d'essai.
+
+
+10. DROIT APPLICABLE
+
+Le présent contrat est soumis au droit français. Sous réserve des règles
+impératives protégeant le consommateur, tout litige relève des tribunaux
+compétents du ressort du siège de l'Éditeur.
+
+
+COMPOSANTS TIERS
+
+L'exécutable distribué embarque Python (licence PSF), Tcl/Tk (licence BSD)
+et les bibliothèques intégrées à Python (OpenSSL, libffi, zlib, bzip2,
+Zstandard…), ainsi que du code redistribuable de Microsoft. Ces composants
+restent régis par leurs licences respectives, reproduites dans l'application
+(bouton « ? », onglet « Composants tiers »).
