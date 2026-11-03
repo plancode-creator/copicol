@@ -82,19 +82,30 @@ durée prévue. La vérification d'une sauvegarde et la récupération des droit
 le sont aussi. La **copie**, la **reprise** et la
 **restauration** demandent une licence. À la première copie, copicol demande
 la clé reçue par e-mail après l'achat et l'active ; une connexion à Internet
-n'est nécessaire qu'à ce moment-là. Ensuite, si le poste est connecté, la clé
+est nécessaire à ce moment-là. Ensuite, si le poste est connecté, la clé
 est revérifiée en arrière-plan au plus une fois par semaine ; hors ligne,
-copicol fonctionne normalement.
+copicol fonctionne normalement pendant 30 jours. Au-delà, la copie et la
+reprise attendent une revérification réussie : il suffit de brancher le poste
+sur Internet une fois par mois. La restauration, elle, reste toujours
+possible hors ligne. À l'activation, copicol envoie à Lemon Squeezy le nom du
+poste et le numéro de série du support, pour que l'acheteur reconnaisse ses
+activations.
 
-La licence est liée au lecteur (disque ou clé USB) d'où `copicol.exe` est lancé. Pour l'emporter
+La licence est liée au lecteur (disque ou clé USB) d'où `copicol.exe` est
+lancé, et chaque lecteur activé compte pour une activation. Pour l'emporter
 de serveur en serveur, copier `copicol.exe` sur une clé USB et l'activer
 depuis la clé : il fonctionne ensuite sur tout ordinateur où on la branche.
+Lancé depuis un partage réseau, chaque poste compte pour un lecteur.
 La licence est enregistrée à côté de l'exécutable
 (`copicol_licence.json`) : déplacer les deux fichiers ensemble dans un autre
-dossier du même lecteur ne la perd pas.
+dossier du même lecteur ne la perd pas. Recopiée sur un autre lecteur, ou
+modifiée à la main, elle est refusée à la revérification suivante.
 
 Pour utiliser la licence sur un autre lecteur ou ordinateur : bouton **?**, puis
-**Licence…** et **Libérer**, puis activer la clé depuis le nouveau.
+**Licence…** et **Libérer**, puis activer la clé depuis le nouveau. Un lecteur
+reformaté ou remplacé n'est plus reconnu : libérer son ancienne activation
+depuis la page de commande Lemon Squeezy (lien dans l'e-mail d'achat), puis
+réactiver la clé.
 
 Au premier lancement, copicol affiche sa licence, à accepter pour
 l'utiliser, ainsi que ce mode d'emploi et les licences des composants qu'il
@@ -238,7 +249,7 @@ réglages modifiés) :
 | Raccourcir les noms | Règle appliquée à un nom trop long : coupe simple (par défaut), début et fin, ou abréviation. Voir [Règles de renommage](#règles-de-renommage). |
 | Vérifier chaque fichier après copie | Relit la copie **sur le disque lui-même** (pas dans la mémoire de Windows) et la compare à la source. Plus lent : chaque fichier est relu une seconde fois. |
 | Conserver (métadonnées) | **Date de modification seule** (par défaut, comme l'explorateur, avec l'attribut lecture seule) ; **Dates et attributs** : aussi la date de création et les attributs caché, système, archive, dossiers compris ; **Dates, attributs et permissions** : aussi les droits d'accès NTFS (la liste de contrôle d'accès, pas le propriétaire), pour une archive professionnelle. NTFS, exFAT, FAT32 et la plupart des NAS gardent dates et attributs ; seuls NTFS et certains NAS gardent les permissions. Une métadonnée que la cible ne connaît pas est abandonnée avec un seul avertissement au journal ; un refus ponctuel est compté dans le rapport et noté dans le CSV. Le fichier, lui, est toujours copié. Attention : les droits du serveur s'appliquent alors à la sauvegarde. Voir [Permissions et mode administrateur](#permissions-et-mode-administrateur). |
-| Arrêter si le disque semble défaillant | Cochée par défaut. Après 5 erreurs matérielles (lecture ou écriture impossible, erreur CRC, copie relue différente, disque débranché), la copie s'arrête au lieu d'user un disque peut-être mourant. Le journal dit quoi vérifier ; relancer reprend là où elle s'est arrêtée. Un simple accès refusé ne compte pas. |
+| Arrêter si le disque semble défaillant | Cochée par défaut. Après 5 erreurs matérielles d'affilée (lecture ou écriture impossible, erreur CRC, copie relue différente, disque débranché), la copie s'arrête au lieu d'user un disque peut-être mourant. Le journal dit quoi vérifier ; relancer reprend là où elle s'est arrêtée. Un simple accès refusé ne compte pas. |
 | Débit max. | Plafonne la vitesse de copie pour ménager un disque ancien ou qui chauffe, ou laisser de la bande passante à un NAS encore utilisé en journée (choix 50 et 25 Mo/s) : de 100 Mo/s (léger frein) à 10 Mo/s (clé USB 2, disque fragile). Sans limite par défaut. |
 | Repos | Après chaque heure de copie, laisse le disque refroidir de 5 à 30 minutes, puis reprend seule ; le journal l'annonce. Une pause manuelle ne compte pas dans l'heure, et Annuler interrompt le repos. Aucun par défaut. |
 | Exclure | Fichiers et dossiers à ne pas copier, séparés par des points-virgules : `*.tmp; node_modules; ARCHIVES`. Jokers `*` et `?`, majuscules indifférentes. Un dossier exclu l'est avec tout son contenu. Chaque élément exclu est listé dans le CSV. |

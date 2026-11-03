@@ -65,10 +65,13 @@ sans limite de durée.
 
 Une licence s'active sur chaque Support avec la clé reçue lors de l'achat. Le
 Logiciel contacte alors le serveur de licences de l'Éditeur ; une connexion
-à Internet n'est exigée qu'à ce moment. Ensuite, lorsque l'ordinateur est
+à Internet est exigée à ce moment. Ensuite, lorsque l'ordinateur est
 connecté, le Logiciel revérifie la clé en arrière-plan, au plus une fois par
-semaine. Sans connexion, il continue de fonctionner normalement : la licence
-n'est retirée que si le serveur répond que la clé a été désactivée. Ces
+semaine. Sans connexion, il continue de fonctionner normalement pendant
+trente jours ; au-delà, la copie et la reprise d'une copie attendent une
+revérification réussie, tandis que la restauration reste possible hors ligne.
+La licence n'est retirée que si le serveur répond que la clé a été
+désactivée ; une absence de connexion ne la retire jamais. Ces
 échanges transmettent uniquement la clé, le nom de l'ordinateur et du
 Support et l'identifiant de l'activation ; ils ne transmettent aucun nom ni
 contenu des fichiers traités.
@@ -76,7 +79,10 @@ contenu des fichiers traités.
 La licence est liée au support d'où le Logiciel a été activé. Activée sur
 une clé USB, elle suit cette clé d'un ordinateur à l'autre, sans nouvelle
 activation ; activée sur le disque d'un ordinateur, elle reste liée à cet
-ordinateur.
+ordinateur. Lorsque le Logiciel est lancé depuis un partage réseau, chaque
+ordinateur qui l'utilise compte pour un Support. Un Support reformaté ou
+remplacé n'est plus reconnu et doit être activé de nouveau, après
+libération de son ancienne activation.
 
 Le Licencié peut à tout moment libérer un Support (bouton « Licence… », puis
 « Libérer ») pour activer la licence sur un autre.

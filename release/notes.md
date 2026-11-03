@@ -35,7 +35,7 @@ Sur un serveur de projets, les dossiers s'empilent (*Phase DCE › Lot 03 › Pi
 | Entreprise | 79 € | jusqu'à 25 supports activés au sein d'une même entreprise |
 | Entreprise illimitée | 149 € | nombre illimité de supports activés au sein d'une même entreprise |
 
-Paiement unique, sans abonnement. La licence suit le support d'où copicol est lancé : activée sur une clé USB, elle fonctionne sur tous les ordinateurs où on la branche. Boutique : https://plan-code.lemonsqueezy.com
+Paiement unique, sans abonnement. La licence suit le support d'où copicol est lancé : activée sur une clé USB, elle fonctionne sur tous les ordinateurs où on la branche. Une connexion à Internet est nécessaire à l'activation, puis au moins une fois tous les 30 jours pour copier ; la restauration reste toujours possible hors ligne. Boutique : https://plan-code.lemonsqueezy.com
 
 ## Nouveautés de cette version
 
@@ -106,6 +106,36 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 
 **Copie**
 
+- Une copie menée à son terme avec des erreurs n'est plus proposée comme
+  « interrompue » à la copie suivante : reprendre aurait sauté des dossiers
+  dont les fichiers avaient changé depuis. La question de reprise donne la
+  date de l'interruption.
+- Une jonction ou un lien déjà présent dans la cible est remplacé par un vrai
+  dossier, au lieu de faire écrire la copie ailleurs. Un fichier temporaire
+  resté en lecture seule après une coupure ne bloque plus son fichier.
+- Entre deux disques NTFS, un fichier réenregistré moins de 2 secondes après
+  sa copie est recopié : la tolérance de 2 s ne vaut plus que pour les dates
+  à la seconde près (FAT, certains NAS).
+- Le rapport texte est réécrit d'un seul geste : une coupure ne le laisse
+  plus vide.
+- Une extension coupée ne finit plus par une espace ou un point, ce qui
+  rendait le nom inaccessible depuis l'explorateur.
+- Les fichiers temporaires `~copicol_*.tmp` laissés par une coupure sont
+  effacés au passage suivant, même si leur fichier a disparu de la source.
+- Une erreur imprévue qui arrête un dossier est notée au rapport : « Recopier
+  les N éléments » le reprend.
+- L'estimation compare la date en plus de la taille, comme la copie, et ne
+  compte plus les liens symboliques, que la copie ignore.
+- Fermer copicol pendant une copie attend qu'elle s'arrête proprement
+  (rapport final, verrou de la cible levé), 30 secondes au plus.
+- Les fichiers OneDrive / SharePoint à la demande, dédupliqués ou
+  hiérarchisés sont copiés : ils étaient pris pour des liens et ignorés.
+  Seuls les vrais liens symboliques et jonctions le restent.
+- Un fichier enregistré dans la source pendant sa copie est recopié à la
+  copie suivante, au lieu de garder pour toujours une version périmée.
+- « Arrêter si le disque semble défaillant » ne compte plus que les erreurs
+  matérielles d'affilée : quelques fichiers abîmés épars n'arrêtent plus
+  la copie à chaque reprise.
 - Un fichier source nommé `copicol_etat.json` ou `LISEZMOI_COPICOL.txt` à la
   racine est renommé, au lieu d'écraser le point de reprise.
 - La reprise des erreurs d'un rapport garde les noms à point final
@@ -132,8 +162,53 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
   précédé d'une apostrophe : Excel ne l'exécute plus comme une formule.
 - Deux copies lancées dans la même seconde vers une même cible n'écrasent
   plus le rapport de la première (horodatage à la milliseconde).
+- L'estimation ne compte plus comme « déjà copié » que les fichiers de la
+  source présents dans la cible au même chemin et à la même taille : le
+  reste du disque lui faisait annoncer assez de place, ou « tout semble déjà
+  copié », à tort.
+- « Recopier les N éléments » d'un rapport vérifie la règle de renommage de
+  la cible, comme une copie : changée depuis, elle créait des doublons. Une
+  règle modifiée pendant l'estimation est aussi signalée avant de lancer.
+- Un rapport réenregistré par Excel, ou abîmé d'un octet, se lit encore :
+  la recherche ne reste plus bloquée sur « en cours » et la restauration
+  n'échoue plus. Seules les lignes illisibles sont ignorées.
+- La recherche ne dit plus « non copié (simulation) » d'un fichier copié
+  quand une simulation a été lancée après la copie.
+- La limite de débit ne laisse plus écrire à pleine vitesse après une
+  longue période sans écriture (analyse, reprise) : une seconde d'avance au
+  plus.
+- Les fichiers placés dans le dossier de débordement ne gardent de leur
+  extension que lettres et chiffres : plus de point, d'espace finale ou de
+  `?` qui rendaient le nom invalide.
+- « Disque plein » désigne le disque du rapport, et non la cible, quand le
+  rapport a dû être écrit dans Documents.
+- Un rapport modifié dont l'en-tête donne une source ou une cible relative
+  (« .. ») ne peut plus faire écrire la restauration hors du dossier
+  d'arrivée, ni faire ouvrir à la recherche un emplacement hors de la
+  sauvegarde.
+- Un rapport texte réenregistré en ANSI n'arrête plus la restauration, la
+  recherche, la vérification ni la copie. S'il est illisible, la
+  restauration le signale en erreur : les noms qu'il notait sont perdus.
+- Après deux copies faites avec des limites différentes, la restauration
+  rend la version de la dernière copie, et non l'ancien nom raccourci resté
+  dans la sauvegarde.
+- La restauration ne remplace pas non plus un fichier apparu à destination
+  pendant qu'elle le recopiait : il est conservé et signalé.
 
 **Application**
+
+- Licence : le fichier de licence est scellé. Écrit ou modifié à la main, il
+  doit d'abord être revérifié en ligne. Recopié sur un autre support, il est
+  refusé à la revérification. Sans revérification réussie depuis 30 jours, la
+  copie attend une connexion ; la restauration reste possible hors ligne.
+  Depuis un partage réseau, chaque poste compte pour un support. Fermer la
+  fenêtre de licence pendant l'activation ne lance plus la copie toute seule
+  ensuite.
+- Contrat de licence, mode d'emploi et onglet Tarifs : règle des 30 jours,
+  partage réseau et support reformaté ou remplacé.
+- Release : construite à partir de dépendances verrouillées et vérifiées par
+  empreinte (`requirements-lock.txt`), actions GitHub épinglées par commit,
+  jeton en lecture seule pendant la construction.
 
 - Fenêtre « Mode d'emploi et licences », ouverte par le bouton **?** : à
   propos, mode d'emploi (le README), licence de copicol et licences des
@@ -148,6 +223,15 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
   dépendance (PySide6/Qt retiré) ; l'exécutable est nettement plus léger.
 - Les réglages mémorisés passent dans `%LOCALAPPDATA%\copicol\reglages.json` :
   les chemins saisis avec la version 1.0.0 sont à ressaisir une fois.
+- Une licence dont la date de vérification est dans le futur (fichier
+  modifié, horloge remise en arrière) est revérifiée au démarrage, au lieu
+  de rester valable pour toujours.
+- La revérification de la licence au démarrage n'écrase plus un « Libérer »
+  ou une nouvelle activation faits pendant qu'elle attendait le serveur.
+- `tools/public.py` refuse de joindre un `copicol.exe` plus ancien que des
+  modifications en cours, et pas seulement que le dernier commit.
+- Au 100e commit, le numéro passe de V1.99 à V2.00 plutôt qu'à V1.100, qui
+  sortait du format Vx.xx et se triait avant V1.99.
 
 **Interface**
 
@@ -214,6 +298,13 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 - La copie en cours vers une cible déjà utilisée par un autre poste est
   refusée sans proposer de passer outre : le verrou ne tient plus que tant
   que l'autre copie tourne réellement.
+- Annuler (ou Échap) et fermer la fenêtre ne plantent plus quand la copie
+  se termine pendant que la confirmation est affichée.
+- Après Annuler, Pause reste grisé : un clic dessus bloquait l'interruption
+  indéfiniment.
+- « Récupérer les droits » compte comme une tâche en cours : pas de copie
+  lancée en parallèle, et fermer la fenêtre demande confirmation.
+- Une boîte de dialogue ouverte en cours de copie ne fige plus la progression.
 
 ---
 
