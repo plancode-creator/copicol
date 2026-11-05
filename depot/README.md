@@ -16,7 +16,28 @@ Aucune installation : téléchargez le fichier `.exe` et lancez-le, depuis le di
 
 ## Version de démonstration
 
-La démo fonctionne en simulation : elle parcourt vos dossiers et produit le rapport complet (fichiers à renommer, nom avant / après, erreurs), sans rien copier. L'estimation du volume et de la durée, la recherche dans une sauvegarde et sa vérification sont également libres. La copie, la reprise et la restauration demandent une licence : [plan-code.lemonsqueezy.com](https://plan-code.lemonsqueezy.com).
+La démo fonctionne en simulation : elle parcourt vos dossiers et produit le rapport complet (fichiers à renommer, nom avant / après, erreurs), sans rien copier. L'estimation du volume et de la durée, la recherche dans une sauvegarde, sa vérification (face à la source ou à son manifeste SHA-256), son archivage en zip et la récupération des droits sont également libres. La copie, la reprise et la restauration demandent une licence : [plan-code.lemonsqueezy.com](https://plan-code.lemonsqueezy.com).
+
+## Windows bloque copicol ?
+
+Copicol n'est pas signé par un certificat de signature de code. Au premier lancement, Windows peut donc afficher un avertissement : cela signifie seulement que l'éditeur ou le programme n'est pas identifié, et ne dit rien de son contenu.
+
+- **« Windows a protégé votre ordinateur »** (SmartScreen) : cliquer sur
+  **Informations complémentaires**, puis **Exécuter quand même**. Windows ne
+  le redemande plus pour ce fichier.
+- **« Smart App Control a bloqué une application »** : ce contrôle de
+  Windows 11 bloque les programmes non signés et n'offre pas de bouton pour
+  passer outre. Il n'est actif que sur certains postes : voir **Sécurité
+  Windows ▸ Contrôle des applications et du navigateur ▸ Paramètres de Smart
+  App Control**. On peut l'y désactiver, mais c'est un choix de sécurité
+  pour tout le poste (sur un poste d'entreprise, à voir avec le service
+  informatique) : selon la version de Windows, il ne peut plus être réactivé
+  ensuite sans réinstaller Windows. À défaut, utiliser copicol depuis un
+  autre poste.
+
+**Avant d'acheter une licence**, lancez une **simulation** sur le poste
+prévu : elle est gratuite et montre que copicol y démarre et y lit vos
+dossiers.
 
 ## Pourquoi
 
@@ -29,21 +50,21 @@ sous une limite choisie** (240 caractères par défaut) et note, pour chaque
 
 ## Installation
 
-Aucune. Télécharger `copicol.exe` depuis la page
+Aucune. Télécharger `copicol_x.xx.exe` (`x.xx` : le numéro de version,
+par exemple `copicol_1.31.exe`) depuis la page
 [Releases](../../releases) et le lancer : il
 embarque tout ce qu'il lui faut et fonctionne depuis une clé USB, sans droits
 d'administrateur. Windows 10 ou 11.
 
-Au premier lancement, Windows peut afficher « Windows a protégé votre
-ordinateur » : l'exécutable n'est pas signé par un certificat payant, ce qui
-ne dit rien de son contenu. Cliquer sur **Informations complémentaires**, puis
-**Exécuter quand même**. Windows ne le redemande plus pour ce fichier.
+Si Windows bloque le premier lancement, voir « Windows bloque copicol »
+ci-dessus.
 
 Pour vérifier qu'un exécutable recopié n'a pas été altéré, comparer son
-empreinte à celle du fichier `copicol.exe.sha256` publié à côté :
+empreinte à celle du fichier `.sha256` publié à côté (par exemple
+`copicol_1.31.exe.sha256`) :
 
 ```powershell
-Get-FileHash copicol.exe -Algorithm SHA256
+Get-FileHash copicol_1.31.exe -Algorithm SHA256
 ```
 
 ## Utilisation
@@ -52,7 +73,11 @@ Get-FileHash copicol.exe -Algorithm SHA256
 2. **Cible** : un dossier **court** sur le disque externe (ex. `E:\SAUVEGARDE`) :
    chaque caractère pris par la cible manque aux chemins copiés. Sous le
    champ s'affichent la place libre et le nombre de caractères laissés aux
-   chemins copiés ; un dossier introuvable y est signalé en rouge.
+   chemins copiés ; un dossier introuvable y est signalé en rouge. Lancé
+   depuis une clé USB ou un disque externe, copicol propose le bouton
+   **Ce lecteur** (Alt+L) : la sauvegarde va dans `<lecteur>:\SAUVEGARDE`
+   sur ce même support, créé au besoin. Ses chemins sont mémorisés sans la
+   lettre : la clé branchée sous une autre lettre retrouve sa cible.
 3. **Démarrer la copie** (ou Entrée). Le bouton reste grisé tant que les deux
    dossiers ne sont pas valides. Les chemins et options sont mémorisés, et
    la flèche des champs propose les derniers dossiers utilisés.
@@ -78,8 +103,8 @@ réseau ou de disque.
 
 La simulation et l'estimation sont libres : elles montrent, sur vos propres
 dossiers, combien d'éléments seraient renommés, le volume à copier et la
-durée prévue. La vérification d'une sauvegarde et la récupération des droits
-le sont aussi. La **copie**, la **reprise** et la
+durée prévue. La vérification d'une sauvegarde, la récupération des droits et
+l'archivage en zip le sont aussi. La **copie**, la **reprise** et la
 **restauration** demandent une licence. À la première copie, copicol demande
 la clé reçue par e-mail après l'achat et l'active ; une connexion à Internet
 est nécessaire à ce moment-là. Ensuite, si le poste est connecté, la clé
@@ -91,9 +116,9 @@ possible hors ligne. À l'activation, copicol envoie à Lemon Squeezy le nom du
 poste et le numéro de série du support, pour que l'acheteur reconnaisse ses
 activations.
 
-La licence est liée au lecteur (disque ou clé USB) d'où `copicol.exe` est
+La licence est liée au lecteur (disque ou clé USB) d'où `copicol_x.xx.exe` est
 lancé, et chaque lecteur activé compte pour une activation. Pour l'emporter
-de serveur en serveur, copier `copicol.exe` sur une clé USB et l'activer
+de serveur en serveur, copier `copicol_x.xx.exe` sur une clé USB et l'activer
 depuis la clé : il fonctionne ensuite sur tout ordinateur où on la branche.
 Lancé depuis un partage réseau, chaque poste compte pour un lecteur.
 La licence est enregistrée à côté de l'exécutable
@@ -145,7 +170,9 @@ tâches reste rouge jusqu'à ce que le bandeau soit fermé. Le menu **Rapports**
 Le rapport signale aussi les éléments **présents dans la cible mais absents
 de la source** : des fichiers supprimés ou renommés sur le serveur depuis une
 copie précédente. copicol ne les efface jamais : à vous de juger s'ils
-doivent rester dans la sauvegarde.
+doivent rester dans la sauvegarde. S'ils avaient une empreinte, le contrôle
+avec le manifeste les dira ensuite « manquants » une fois supprimés : c'est
+attendu.
 
 ### Retrouver un fichier
 
@@ -180,17 +207,23 @@ ne supprimez pas `_RAPPORT_COPICOL`.
 
 ### Vérifier une sauvegarde
 
-**Vérifier…**, à côté de Démarrer, contrôle une sauvegarde existante **sans
+**Outils ▸ Vérifier la sauvegarde (comparer à la source)…** (Alt+V) contrôle
+la sauvegarde indiquée dans Cible **sans
 rien recopier** : chaque fichier de la source est comparé, octet par octet, à
 son double dans la cible, relu sur le disque lui-même. À la différence de
 l'option « Vérifier chaque fichier après copie », qui relit chaque fichier
 aussitôt écrit, elle se lance à tout moment, des mois après la copie : le
 disque a-t-il gardé ce qu'on lui a confié ?
 
+Sans la source, **Outils ▸ Contrôler avec le manifeste SHA-256…** prend le
+relais (voir « Contrôler sans la source »).
+
 Les noms de la sauvegarde sont recalculés avec la longueur maximale, la règle
 de renommage et les exclusions de sa dernière copie, lues dans son rapport :
-noms raccourcis et dossier de secours compris. Si la source choisie n'est pas
-celle de la sauvegarde, copicol propose de comparer au dossier d'origine.
+noms raccourcis et dossier de secours compris. La comparaison se fait au
+dossier d'origine de la sauvegarde, lu lui aussi dans ce rapport, quelle que
+soit la source affichée : rien à choisir. S'il est devenu inaccessible (serveur
+renommé, disque déplacé), copicol propose de comparer à la source indiquée.
 
 Chaque fichier reçoit un statut, dans le rapport `rapport_verification_<date>` :
 
@@ -199,10 +232,97 @@ Chaque fichier reçoit un statut, dans le rapport `rapport_verification_<date>` 
 | identique | Relu sur la sauvegarde, identique à la source. |
 | altere | Même date que la source, contenu différent : la sauvegarde est abîmée. Contrôlez le disque, puis relancez la copie sans « Ignorer les fichiers déjà présents ». |
 | manquant | Dans la source, pas dans la sauvegarde. |
-| perime | Modifié dans la source depuis la copie : la prochaine copie le mettra à jour. |
+| perime | Modifié dans la source depuis la copie, ou pendant la vérification : la prochaine copie le mettra à jour. |
 | absent de la source | Dans la sauvegarde seulement (supprimé du serveur depuis). |
 
-La vérification est libre, comme l'estimation : elle n'écrit que son rapport.
+La vérification est libre, comme l'estimation : elle n'écrit que son rapport,
+et le manifeste des fichiers trouvés identiques (voir ci-dessous).
+
+### Contrôler sans la source
+
+Une fois le serveur d'origine mis au rebut, **Vérifier la sauvegarde…** n'a plus rien à
+quoi comparer. Pour ce moment-là, copicol garde l'**empreinte SHA-256** et la
+**taille** de chaque fichier dont la copie a été validée :
+
+- une copie avec « Créer un manifeste SHA-256 » (Réglages…, groupe Sécurité,
+  cochée par défaut) note chaque fichier relu sur le disque et identique à la
+  source, à partir des blocs déjà lus pour la copie : la source n'est pas
+  relue. Cette option impose donc « Vérifier chaque fichier après copie » ;
+- **Vérifier la sauvegarde…** note chaque fichier trouvé identique : une sauvegarde copiée
+  sans vérification, ou avec une version antérieure de copicol, reçoit ainsi
+  ses empreintes tant que la source existe.
+
+Jamais une empreinte n'est prise sur un fichier simplement lu dans la source,
+ni confirmée pour un fichier « déjà présent » d'après sa taille et sa date :
+il garde celle de sa dernière validation, que le contrôle confronte à son
+contenu réel.
+
+Les empreintes sont rangées dans `_RAPPORT_COPICOL` :
+
+| Fichier | Rôle |
+|---|---|
+| `empreintes.csv` | **Manifeste de la sauvegarde** : un fichier par ligne (`sha256;octets;chemin;valide_le`), UTF-8, à ouvrir dans Excel. Refait après chaque copie : les fichiers modifiés y prennent leur nouvelle empreinte, les nouveaux s'y ajoutent, ceux recopiés sans vérification en sortent. |
+| `empreintes.sha256` | Le même, au format `sha256sum`, avec l'empreinte du CSV. Sans copicol, depuis le dossier de la sauvegarde : `sha256sum -c _RAPPORT_COPICOL/empreintes.sha256`. |
+| `rapport_<copie ou verification>_<date>.empreintes` | **Journal** d'une copie, à côté de son rapport : la trace d'origine, écrite au fil de la copie et forcée sur le disque après chaque dossier. Le manifeste en est tiré. |
+
+Les chemins sont relatifs à la sauvegarde, au nom réellement écrit sur le
+disque (noms raccourcis et `_CHEMINS_TROP_LONGS` compris) : le disque peut
+changer de lettre.
+
+**Outils ▸ Contrôler avec le manifeste SHA-256…** relit ensuite la sauvegarde, des mois
+après, sur n'importe quel poste, sans rien lire d'autre que ce disque. La
+taille est comparée d'abord, puis chaque fichier est relu en entier sur le
+disque lui-même et son empreinte recalculée. Rapport `rapport_controle_<date>`,
+dans `_RAPPORT_COPICOL` :
+
+| Statut | Sens |
+|---|---|
+| identique | Conforme à son empreinte : intact depuis la validation de sa copie. |
+| altere | Taille ou contenu différent de la référence SHA-256. |
+| manquant | Cité par les empreintes, absent du disque. Le bandeau, orange, demande s'il a été supprimé à la main (absent de la source) ; sinon, le reprendre d'une autre sauvegarde. |
+| sans empreinte | Recopié sans vérification depuis sa dernière empreinte, ou copie coupée net pendant qu'il était remplacé : non contrôlé. « Vérifier la sauvegarde… » lui redonne une empreinte. |
+| absent du manifeste | Sur le disque, cité par aucune empreinte (ajouté à la main, copié sans vérification) : signalé, jamais supprimé. |
+| erreur | Lecture impossible sur le disque de sauvegarde. |
+
+**Protection** : chaque fichier d'empreintes commence par une ligne de format
+(`# format copicol-…`) et finit par un sceau, l'empreinte de tout ce qui
+précède ; il passe ensuite en lecture seule. Un journal est écrit une fois,
+jamais réécrit. Le manifeste est écrit sous un nom temporaire, relu et
+validé, puis seulement mis à la place de l'ancien : une coupure laisse
+l'ancien intact. Le contrôle signale, dans le bandeau et en tête du rapport,
+un journal modifié, aux lignes illisibles, d'un format inconnu (ignoré) ou
+sans sceau (copie coupée net), et un manifeste absent, abîmé ou en retard
+sur les journaux ; il s'appuie alors sur les journaux, et la copie suivante
+refait le manifeste. Le contrôle est libre.
+
+### Archiver une sauvegarde
+
+**Outils ▸ Archiver une sauvegarde en zip…** fait d'une sauvegarde terminée
+un fichier `.zip`, pour l'envoyer ou la ranger. Choisir le dossier cible
+d'une copie, puis l'emplacement de l'archive, **hors de la sauvegarde** (par
+défaut à côté, nommée d'après le dossier et la date). Les chemins y sont déjà
+raccourcis : le zip s'ouvre et s'extrait partout, explorateur compris.
+
+- Les rapports `_RAPPORT_COPICOL` sont archivés avec la sauvegarde : une fois
+  extraite, elle se restaure comme l'originale. Le point de reprise et le
+  verrou d'une copie ne le sont pas.
+- Les formats déjà compressés (PDF, images, vidéos, DWG, Revit, fichiers
+  Office, zip…) sont rangés tels quels : les recompresser ne gagnerait rien
+  et prendrait des heures. Les autres sont compressés.
+- L'archive est écrite sous un nom provisoire (`.zip.partiel`), **relue en
+  entier** (chaque fichier décompressé et contrôlé), puis renommée : un zip
+  qui porte son nom final est toujours complet. Une archive du même nom est
+  remplacée à ce moment-là seulement.
+- Annuler (Échap) ou une erreur ne laisse aucune archive partielle.
+- Si une copie écrit dans la sauvegarde (depuis ce poste ou un autre),
+  l'archivage est refusé jusqu'à ce qu'elle se termine ; aucune copie ne
+  peut y écrire tant qu'il dure.
+- **Tout ou rien** : si un seul élément ne peut pas être lu (fichier
+  verrouillé, dossier sans droits), l'archivage s'arrête sans rien écrire et
+  nomme chaque élément en cause. Le libérer (fermer le logiciel qui le tient,
+  récupérer les droits) puis relancer.
+
+La sauvegarde n'est jamais modifiée. L'archivage est libre, sans licence.
 
 ### Reprendre une copie
 
@@ -240,19 +360,25 @@ simulation remplit seulement la source et la cible, sans rien lancer.
 | Écarter les fichiers techniques | `Thumbs.db`, verrous Office, `.bak` et `.sv$` d'AutoCAD… comptés dans le rapport, jamais copiés. |
 
 Dans la fenêtre **Réglages…** (Alt+G ; la fenêtre principale rappelle les
-réglages modifiés) :
+réglages modifiés). Pendant une copie, **Débit max.** et **Repos** changent
+aussitôt, sans l'interrompre, et le journal le note ; les autres réglages de
+copie sont grisés jusqu'à la fin, pour ne pas faire une moitié de la
+sauvegarde d'une façon et l'autre d'une autre :
 
 | Option | Effet |
 |---|---|
 | Longueur max. du chemin | Limite du chemin complet cible (240 par défaut, sous la limite Windows de 260). |
 | Longueur max. d'un nom | Limite d'un nom de fichier ou de dossier (120 par défaut). |
 | Raccourcir les noms | Règle appliquée à un nom trop long : coupe simple (par défaut), début et fin, ou abréviation. Voir [Règles de renommage](#règles-de-renommage). |
+| Créer un manifeste SHA-256 | Cochée par défaut. Note l'empreinte de chaque fichier relu et validé, pour contrôler la sauvegarde même sans la source (voir « Contrôler sans la source »). Impose la vérification ci-dessous. Décochée, les empreintes déjà prises restent, et celles des fichiers recopiés depuis sont annulées. |
 | Vérifier chaque fichier après copie | Relit la copie **sur le disque lui-même** (pas dans la mémoire de Windows) et la compare à la source. Plus lent : chaque fichier est relu une seconde fois. |
 | Conserver (métadonnées) | **Date de modification seule** (par défaut, comme l'explorateur, avec l'attribut lecture seule) ; **Dates et attributs** : aussi la date de création et les attributs caché, système, archive, dossiers compris ; **Dates, attributs et permissions** : aussi les droits d'accès NTFS (la liste de contrôle d'accès, pas le propriétaire), pour une archive professionnelle. NTFS, exFAT, FAT32 et la plupart des NAS gardent dates et attributs ; seuls NTFS et certains NAS gardent les permissions. Une métadonnée que la cible ne connaît pas est abandonnée avec un seul avertissement au journal ; un refus ponctuel est compté dans le rapport et noté dans le CSV. Le fichier, lui, est toujours copié. Attention : les droits du serveur s'appliquent alors à la sauvegarde. Voir [Permissions et mode administrateur](#permissions-et-mode-administrateur). |
 | Arrêter si le disque semble défaillant | Cochée par défaut. Après 5 erreurs matérielles d'affilée (lecture ou écriture impossible, erreur CRC, copie relue différente, disque débranché), la copie s'arrête au lieu d'user un disque peut-être mourant. Le journal dit quoi vérifier ; relancer reprend là où elle s'est arrêtée. Un simple accès refusé ne compte pas. |
 | Débit max. | Plafonne la vitesse de copie pour ménager un disque ancien ou qui chauffe, ou laisser de la bande passante à un NAS encore utilisé en journée (choix 50 et 25 Mo/s) : de 100 Mo/s (léger frein) à 10 Mo/s (clé USB 2, disque fragile). Sans limite par défaut. |
 | Repos | Après chaque heure de copie, laisse le disque refroidir de 5 à 30 minutes, puis reprend seule ; le journal l'annonce. Une pause manuelle ne compte pas dans l'heure, et Annuler interrompt le repos. Aucun par défaut. |
+| Compresser la cible (NTFS) | Windows compresse chaque fichier écrit sur la sauvegarde, comme la case « Compresser » de l'explorateur : les fichiers restent lisibles tels quels, et reprise, vérification et restauration fonctionnent comme sans. Gain notable sur les textes, tableaux, IFC, bases et exports bruts ; presque nul sur les PDF, images, DWG et fichiers Office, déjà compressés. Disque NTFS seulement : sur exFAT, FAT32 ou un NAS, un avertissement au journal, et la copie se fait sans. Les fichiers déjà présents sur la sauvegarde ne sont compressés qu'à leur prochain remplacement (pour tout compresser d'un coup : `compact /c /s /i /q` dans le dossier de la sauvegarde). Jamais appliquée à une restauration. |
 | Exclure | Fichiers et dossiers à ne pas copier, séparés par des points-virgules : `*.tmp; node_modules; ARCHIVES`. Jokers `*` et `?`, majuscules indifférentes. Un dossier exclu l'est avec tout son contenu. Chaque élément exclu est listé dans le CSV. |
+| Afficher les infobulles | Cochée par défaut. Explication au survol de chaque élément de la fenêtre. |
 
 ### Permissions et mode administrateur
 
@@ -281,8 +407,10 @@ suivante ou l'ouverture des fichiers.
 | Ctrl+F | Rechercher un fichier dans une sauvegarde |
 | Alt+S, Alt+C | Aller au champ Source, Cible |
 | Alt+M, Alt+I | Cocher ou décocher Simulation, Ignorer les fichiers déjà présents |
-| Alt+D, Alt+E, Alt+V | Démarrer, Estimer, Vérifier la sauvegarde |
+| Alt+D, Alt+E | Démarrer, Estimer |
+| Alt+V | Vérifier la sauvegarde (Outils ▸ Vérifier la sauvegarde) |
 | Alt+G | Réglages avancés |
+| Alt+L | Cible sur le lecteur de copicol (bouton « Ce lecteur », s'il est affiché) |
 | Alt+P, Alt+R, Alt+A | Pause, Reprendre, Annuler |
 
 ### Règles de renommage
@@ -337,6 +465,12 @@ Le rapport indique pourquoi chaque élément a été raccourci :
 | nom trop long + chemin trop long | Les deux : le nom dépasse 120, et le dossier impose une coupe plus courte encore. |
 | profondeur excessive | Même raccourci, aucun nom lisible ne tient : l'élément part dans `_CHEMINS_TROP_LONGS`. |
 
+Chaque renommage, dans le journal comme dans le rapport, cite la mesure qui
+l'a imposé et la limite en vigueur pendant la copie, par exemple
+`nom trop long : 126 car. pour 120 autorisés → 120` ou
+`caractères interdits : « ? », remplacés par « _ »`. Le CSV la reprend dans
+sa colonne `explication`.
+
 ### Ce que copicol écrit dans la cible
 
 | Élément | Rôle |
@@ -346,6 +480,9 @@ Le rapport indique pourquoi chaque élément a été raccourci :
 | `_RAPPORT_COPICOL\copie_en_cours.lock` | Présent pendant une copie : empêche deux copies simultanées vers la même cible. |
 | `_RAPPORT_COPICOL\rapport_restauration_<date>.*` | Rapports des restaurations faites depuis cette sauvegarde. |
 | `_RAPPORT_COPICOL\rapport_verification_<date>.*` | Rapports des vérifications de cette sauvegarde. |
+| `_RAPPORT_COPICOL\empreintes.csv`, `empreintes.sha256` | Manifeste d'empreintes SHA-256 de la sauvegarde, scellé et en lecture seule : le contrôle sans la source s'en sert (voir « Contrôler sans la source »). |
+| `_RAPPORT_COPICOL\rapport_<copie ou verification>_<date>.empreintes` | Journal d'empreintes de chaque copie, dont le manifeste est tiré. |
+| `_RAPPORT_COPICOL\rapport_controle_<date>.*` | Rapports des contrôles sans la source. |
 | `_CHEMINS_TROP_LONGS\` | Éléments trop profonds, si besoin. |
 | `LISEZMOI_COPICOL.txt` | Explique la sauvegarde à qui branche le disque sans connaître copicol : noms raccourcis, rapports, restauration. |
 | `copicol_etat.json` | Point de reprise d'une copie interrompue ; supprimé en fin de copie réussie. |
@@ -363,9 +500,10 @@ renommé pour ne pas les écraser.
   version précédente éventuelle reste intacte.
 - **Disque plein** : la copie s'arrête net, avec un message clair, au lieu
   d'empiler une erreur par fichier restant.
-- **Contrôle dans la durée** : **Vérifier…** relit à tout moment la
+- **Contrôle dans la durée** : **Vérifier la sauvegarde…** relit à tout moment la
   sauvegarde et la compare à la source, octet par octet (voir « Vérifier une
-  sauvegarde »).
+  sauvegarde ») ; sans la source, **Outils ▸ Contrôler avec le manifeste
+  SHA-256…** la compare aux empreintes prises à la validation de chaque copie.
 - **Veille** : Windows ne se met pas en veille pendant une copie (l'écran peut
   s'éteindre).
 - **Liens symboliques et jonctions** : ignorés et signalés, pour éviter les
@@ -404,9 +542,11 @@ n'est ni une sauvegarde système, ni une sauvegarde à chaud des applications
   (base de données, logiciel métier…) peut être refusé à la lecture. Il est
   alors signalé en erreur et se reprend avec **Outils ▸ Reprendre d'après
   un rapport…**.
-- **Pas de cliché instantané (VSS)** : un fichier modifié pendant sa lecture
-  peut être copié dans un état incohérent, sans qu'aucune erreur ne soit
-  signalée. C'est surtout grave pour les bases de données. Fermer les
+- **Pas de cliché instantané (VSS)** : un fichier enregistré pendant sa
+  copie est signalé en erreur (taille ou date changée en cours de lecture)
+  et repris à la copie suivante. Mais un programme qui écrit dans un fichier
+  sans en changer ni la taille ni la date (certaines bases de données) peut
+  le laisser copié dans un état incohérent, sans erreur. Fermer les
   applications concernées, ou arrêter leurs services, avant de sauvegarder
   leurs données.
 - **Propriétés des fichiers** : par défaut, seuls le contenu, la date de
@@ -415,13 +555,25 @@ n'est ni une sauvegarde système, ni une sauvegarde à chaud des applications
   système et archive, puis les permissions NTFS, et le propriétaire en mode
   administrateur. Jamais conservés : la date de modification des dossiers
   (ils prennent celle de la copie), le groupe principal et l'audit (SACL),
-  les flux de données alternatifs, la compression et le chiffrement NTFS.
+  les flux de données alternatifs, la compression et le chiffrement NTFS de
+  la source (la sauvegarde peut être compressée : option « Compresser la
+  cible »).
 - **Permissions sur un NAS ou un disque exFAT/FAT32** : exFAT et FAT32 n'en
   ont pas ; un NAS les traduit à sa façon, ou les refuse. copicol le signale
   une fois au journal et copie quand même. Le mode administrateur n'a été
   éprouvé que sur des disques NTFS locaux.
 - **Liens symboliques et jonctions** : ignorés et signalés, jamais suivis. Le
-  dossier vers lequel ils pointent n'est pas copié par ce biais.
+  dossier vers lequel ils pointent n'est pas copié par ce biais. Un lien
+  posé dans la cible, à la place d'un fichier ou d'un dossier copié, est
+  remplacé par la vraie copie : la copie n'écrit jamais ailleurs à travers
+  lui. La restauration, elle, garde les jonctions du dossier où elle écrit
+  (un dossier du serveur déplacé sur un autre volume, par exemple) et
+  restaure à travers elles.
+- **Relecture sur le disque** : la vérification relit chaque copie sur le
+  disque lui-même, sans la mémoire de Windows. Si le système de fichiers
+  refuse ce mode (certains partages réseau), la relecture passe par la
+  mémoire de Windows, ce qui prouve moins ce que le disque a enregistré : le
+  journal l'annonce une fois.
 - **Exclusions** : un motif porte sur le nom seul, partout dans la source. On
   ne peut pas exclure un dossier `ARCHIVES` à un endroit précis et le garder
   ailleurs.
@@ -475,6 +627,44 @@ n'est ni une sauvegarde système, ni une sauvegarde à chaud des applications
   sauvegarde est seulement en retard.
 - **Durée** : chaque fichier est relu en entier des deux côtés, comme une
   copie complète sans écriture.
+
+### Contrôle sans la source
+
+- **Ce qu'il prouve** : qu'un fichier n'a pas changé depuis la validation de
+  sa copie. Pas qu'il était juste à ce moment-là au-delà de cette validation
+  (voir « Vérification »), ni que les propriétés sont conservées.
+- **Fichiers sans empreinte** : ceux copiés sans vérification ne sont pas
+  contrôlés, et le bandeau le dit. Tant que la source existe, lancez
+  **Vérifier la sauvegarde…** une fois : c'est lui qui leur donne une empreinte.
+- **Fichier modifié à la main** sur la sauvegarde : il est signalé « altéré ».
+  **Supprimé à la main** (par exemple un élément absent de la source) : il
+  reste « manquant » à chaque contrôle, en orange.
+- **Empreintes perdues** : le manifeste effacé est refait par la copie
+  suivante d'après les journaux ; un journal effacé emporte ses empreintes,
+  et ses fichiers passent « absent du manifeste ». Une archive zip de la sauvegarde
+  emporte les manifestes avec elle.
+- **Lecture seule** : supprimer la sauvegarde peut demander une confirmation
+  pour ses manifestes ; c'est voulu.
+- **Durée** : chaque fichier est relu en entier, une seule fois.
+
+### Archivage
+
+- **Place** : l'archive se crée à côté de la sauvegarde, sur le même disque
+  en général ; il faut donc jusqu'à son volume en place libre. Un disque
+  plein arrête l'archivage, sans rien laisser.
+- **Fichier verrouillé ou illisible**, dossier sans droits : l'archivage
+  s'arrête, aucune archive n'est écrite, et chaque élément en cause est listé
+  au journal. Une archive sans eux porterait le nom d'une sauvegarde entière.
+  Les dossiers illisibles sont repérés dès la liste, avant toute écriture ;
+  un fichier verrouillé, seulement quand vient son tour. Une erreur **en
+  pleine lecture** (disque défaillant) arrête tout de même.
+- **Durée** : l'archive est relue en entier après écriture ; compter le
+  temps de deux lectures complètes de la sauvegarde.
+- **Pas de découpage** en volumes, ni de mot de passe : pour une clé
+  formatée en FAT32, une archive de plus de 4 Go ne passe pas.
+- **Noms** : un nom au caractère Unicode incomplet (rare, admis par
+  Windows) ne s'écrit pas dans un zip : l'élément est listé et l'archivage
+  s'arrête ; le renommer, puis relancer.
 
 ### Recherche
 

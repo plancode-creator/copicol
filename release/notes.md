@@ -4,8 +4,8 @@
 
 | Fichier | |
 |---|---|
-| **copicol.exe** | L'application, prête à lancer : aucune installation, aucun droit d'administrateur. Fonctionne depuis une clé USB. |
-| copicol.exe.sha256 | Son empreinte, pour vérifier qu'une copie de l'exe n'a pas été altérée. |
+| **copicol_1.38.exe** | L'application, prête à lancer : aucune installation, aucun droit d'administrateur. Fonctionne depuis une clé USB. |
+| copicol_1.38.exe.sha256 | Son empreinte, pour vérifier qu'une copie de l'exe n'a pas été altérée. |
 
 Windows 10 ou 11. Au premier lancement, Windows peut afficher « Windows a protégé votre ordinateur » : cliquer sur **Informations complémentaires**, puis **Exécuter quand même**.
 
@@ -17,14 +17,15 @@ Sur un serveur de projets, les dossiers s'empilent (*Phase DCE › Lot 03 › Pi
 - **note chaque renommage** (ancien et nouveau nom) dans un rapport `.txt` et un inventaire `.csv` déposés sur le disque de sauvegarde ;
 - **retrouve** un fichier d'après son nom d'origine, même raccourci ;
 - **restaure** la sauvegarde avec ses noms et son arborescence d'origine ;
-- **vérifie**, des mois plus tard, que le disque a gardé intact ce qu'on lui a confié ;
+- **vérifie**, des mois plus tard, que le disque a gardé intact ce qu'on lui a confié, face à la source ou, sans elle, à son manifeste d'empreintes SHA-256 ;
+- **archive** une sauvegarde en zip, qui s'ouvre partout puisque ses chemins sont déjà raccourcis ;
 - **estime** avant de copier le volume, la place libre et la durée prévue ;
 - **ménage le disque et le réseau** : débit plafonné, repos chaque heure, arrêt si le disque semble défaillant ;
 - **simule** gratuitement la copie, pour voir ce qui serait renommé sans rien écrire.
 
 ## Gratuit ou sous licence
 
-**Gratuit, sans limite de durée** : simulation avec rapports, estimation du volume et de la durée, recherche dans les sauvegardes, vérification d'une sauvegarde, récupération des droits d'accès.
+**Gratuit, sans limite de durée** : simulation avec rapports, estimation du volume et de la durée, recherche dans les sauvegardes, vérification d'une sauvegarde (face à la source ou à son manifeste SHA-256), archivage en zip, récupération des droits d'accès.
 
 **Sous licence** : copie, reprise après interruption et restauration.
 
@@ -41,13 +42,53 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 
 **Nouveautés**
 
+- Chaque renommage dit ce qui l'a imposé : la longueur mesurée et la limite
+  en vigueur (`nom trop long : 126 car. pour 120 autorisés → 120`), les
+  caractères interdits trouvés, le nom réservé… Dans le journal, le rapport
+  texte et la nouvelle colonne `explication` du CSV. Le journal affichait
+  auparavant la longueur du chemin complet même quand seul le nom était trop
+  long.
+- Option **Créer un manifeste SHA-256** (Réglages…, groupe Sécurité, cochée
+  par défaut) : impose la vérification de chaque copie.
+- **Contrôler avec le manifeste SHA-256…** (menu Outils) : relit une sauvegarde, des
+  mois après, sans le serveur d'origine : taille d'abord, puis empreinte
+  SHA-256 recalculée sur le disque. On peut y choisir la sauvegarde, son
+  dossier `_RAPPORT_COPICOL` ou l'un de ses sous-dossiers : la sauvegarde
+  est retrouvée en remontant. Le rapport `rapport_controle_<date>`
+  distingue les fichiers intacts, altérés, manquants, sans empreinte et
+  absents du manifeste (jamais supprimés), et les erreurs de lecture. Libre.
+- **Manifeste d'empreintes** `_RAPPORT_COPICOL\empreintes.csv` (UTF-8, pour
+  Excel) et `empreintes.sha256` (contrôlable sans copicol avec
+  `sha256sum -c`) : empreinte, taille et date de validation de chaque
+  fichier, au nom réel dans la sauvegarde. Seuls les fichiers relus sur la
+  sauvegarde et identiques à la source y entrent : copie avec vérification,
+  ou **Vérifier la sauvegarde…**. Refait après chaque copie, sous un nom temporaire relu
+  avant de remplacer l'ancien, d'après les journaux `.empreintes` écrits au
+  fil de chaque copie et forcés sur le disque après chaque dossier. Tous
+  portent une ligne de format et un sceau, et passent en lecture seule : un
+  fichier modifié, tronqué, illisible ou d'un autre format est signalé.
+- La vérification pendant la copie compare désormais des empreintes SHA-256
+  (BLAKE2 auparavant) : celles-là mêmes que garde le manifeste.
+- **Archiver une sauvegarde en zip…** (menu Outils) : fait d'une sauvegarde
+  terminée un `.zip` à envoyer ou à ranger, rapports compris. Ses chemins
+  étant déjà raccourcis, il s'ouvre partout, explorateur compris. Les formats
+  déjà compressés (PDF, images, DWG, Office…) sont rangés tels quels.
+  L'archive est relue en entier avant de prendre son nom final ; une
+  annulation ou une erreur n'en laisse aucune partielle. Tout ou rien : un
+  fichier verrouillé ou un dossier illisible arrête l'archivage, sans rien
+  écrire, et chacun est nommé. Libre, sans licence.
+- Option **Compresser la cible (NTFS)** (Réglages…, groupe Place sur le
+  disque) : Windows compresse chaque fichier écrit sur la sauvegarde, qui
+  reste un dossier ordinaire. Sur exFAT, FAT32 ou un NAS, un seul
+  avertissement, et la copie se fait sans.
 - Bouton **Ce lecteur** (Alt+L), à côté de la cible, quand copicol est lancé
   depuis une clé USB ou un disque externe : la sauvegarde va dans
   `<lecteur>:\SAUVEGARDE`, créé au besoin. Au premier lancement depuis le
   support, la cible est pré-remplie ; la note sous le champ rappelle
   « Lecteur de copicol ». Les chemins de ce lecteur sont mémorisés sans leur
   lettre : la clé branchée en F: au lieu de E: retrouve sa cible.
-- Bouton **Vérifier…** (Alt+V) : contrôle l'intégrité d'une sauvegarde
+- **Vérifier la sauvegarde (comparer à la source)…** (menu Outils, Alt+V) :
+  contrôle l'intégrité d'une sauvegarde
   existante sans rien recopier. Chaque fichier de la source est comparé
   octet par octet à son double, relu sur le disque, avec les réglages de la
   dernière copie (noms raccourcis et dossier de secours compris). Le rapport
@@ -68,8 +109,9 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 - **Ménager le disque** (Réglages…) : débit maximal et repos d'un
   quart d'heure, par exemple, chaque heure de copie, pour un disque ancien
   ou qui chauffe pendant une longue copie, ou pour ne pas saturer un NAS
-  encore utilisé en journée (choix « NAS » à 50 et 25 Mo/s). Sans effet sur
-  une simulation.
+  encore utilisé en journée (choix « NAS » à 50 et 25 Mo/s). Modifiables en
+  pleine copie, appliqués aussitôt ; les autres réglages de copie sont alors
+  grisés jusqu'à la fin. Sans effet sur une simulation.
 - **Arrêt sur disque défaillant** (Réglages…, cochée par défaut) :
   après 5 erreurs matérielles (CRC, lecture ou écriture impossible, copie
   relue différente, disque débranché), la copie s'arrête et pourra reprendre.
@@ -110,8 +152,36 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
   « interrompue » à la copie suivante : reprendre aurait sauté des dossiers
   dont les fichiers avaient changé depuis. La question de reprise donne la
   date de l'interruption.
+- Un dossier dont le rapport n'a pas pu être écrit (disque ou NAS
+  défaillant) n'est plus noté comme fait : une reprise le recopie, au lieu de
+  le sauter avec un rapport, donc des noms d'origine, incomplets.
+- Si le journal d'empreintes ne peut plus être écrit, un fichier modifié
+  n'est plus remplacé dans la sauvegarde : il reste en erreur, à recopier.
+  Remplacé, il aurait gardé l'empreinte de l'ancienne version et serait
+  passé pour « altéré » à chaque contrôle.
+- La restauration rend la dernière version d'un fichier même quand la
+  dernière copie a été interrompue ou n'était qu'une reprise des erreurs :
+  tous les rapports de copie sont lus, le plus récent l'emportant. Après un
+  changement des limites de longueur, l'ancien exemplaire raccourci pouvait
+  être restauré à la place du nouveau.
+- Dans le CSV, la colonne `explication` écrit `->` au lieu de `→`, qu'Excel
+  perdait en réenregistrant le fichier.
+- **Vérifier la sauvegarde** : un fichier enregistré dans la source pendant
+  la vérification est classé « modifié depuis la copie », et non plus
+  « altéré » : la sauvegarde n'était pas abîmée.
+- **Archiver une sauvegarde en zip** attend qu'une copie en cours vers cette
+  sauvegarde se termine : le zip aurait mélangé deux états.
+- Les rapports et journaux d'une sauvegarde restent dans l'ordre où ils ont
+  été écrits, même si l'horloge du poste retarde, si deux postes écrivent sur
+  le même disque, ou pendant l'heure répétée du passage à l'heure d'hiver.
+  Un rapport plus ancien pouvait sinon passer pour le dernier.
+- Une source ou une cible dont le nom finit par un point (`Dossier.`, sur un
+  NAS) est bien celle qui est copiée, et non `Dossier`.
 - Une jonction ou un lien déjà présent dans la cible est remplacé par un vrai
-  dossier, au lieu de faire écrire la copie ailleurs. Un fichier temporaire
+  dossier ou fichier, au lieu de faire écrire la copie ailleurs. La
+  restauration, elle, garde les jonctions du serveur où elle écrit (un dossier
+  déplacé sur un autre volume par l'administrateur, par exemple) : elle
+  restaure à travers elles. Un fichier temporaire
   resté en lecture seule après une coupure ne bloque plus son fichier.
 - Entre deux disques NTFS, un fichier réenregistré moins de 2 secondes après
   sa copie est recopié : la tolérance de 2 s ne vaut plus que pour les dates
@@ -131,8 +201,19 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 - Les fichiers OneDrive / SharePoint à la demande, dédupliqués ou
   hiérarchisés sont copiés : ils étaient pris pour des liens et ignorés.
   Seuls les vrais liens symboliques et jonctions le restent.
-- Un fichier enregistré dans la source pendant sa copie est recopié à la
-  copie suivante, au lieu de garder pour toujours une version périmée.
+- Un fichier enregistré dans la source pendant sa copie est signalé en
+  erreur et recopié à la copie suivante, au lieu de garder, validé, un
+  mélange de deux versions.
+- Quand la relecture directe sur le disque est refusée (partage réseau,
+  fichier tenu par un antivirus), le journal le signale une fois : la
+  vérification passe alors par la mémoire de Windows. Un antivirus qui
+  tient le fichier ne force plus ce repli.
+- Le rapport CSV est forcé sur le disque avant le point de reprise : une
+  coupure ne fait plus sauter à la reprise un lot dont les noms d'origine
+  seraient perdus.
+- Contrôle avec le manifeste : des fichiers manquants, le plus souvent
+  supprimés à la main comme absents de la source, donnent un bandeau
+  orange (« supprimé(s) à la main ? ») et non plus « sauvegarde abîmée ».
 - « Arrêter si le disque semble défaillant » ne compte plus que les erreurs
   matérielles d'affilée : quelques fichiers abîmés épars n'arrêtent plus
   la copie à chaque reprise.
@@ -209,6 +290,9 @@ Paiement unique, sans abonnement. La licence suit le support d'où copicol est l
 - Release : construite à partir de dépendances verrouillées et vérifiées par
   empreinte (`requirements-lock.txt`), actions GitHub épinglées par commit,
   jeton en lecture seule pendant la construction.
+- L'exécutable est compilé par Nuitka et non plus assemblé par PyInstaller :
+  le code Python est traduit en C, puis compilé (recette :
+  `tools/build_exe.py`, qui remplace `copicol.spec`).
 
 - Fenêtre « Mode d'emploi et licences », ouverte par le bouton **?** : à
   propos, mode d'emploi (le README), licence de copicol et licences des
